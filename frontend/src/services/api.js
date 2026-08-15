@@ -31,6 +31,16 @@ export const createEvent = async (eventData) => {
   return response.data;
 };
 
+export const updateEvent = async (id, eventData) => {
+  const response = await api.put(`/api/events/${id}`, eventData);
+  return response.data;
+};
+
+export const deleteEvent = async (id) => {
+  const response = await api.delete(`/api/events/${id}`);
+  return response.data;
+};
+
 export const attachImageToEvent = async (eventId, imageUrl) => {
   const response = await api.patch(`/api/events/${eventId}/images`, { imageUrl });
   return response.data;

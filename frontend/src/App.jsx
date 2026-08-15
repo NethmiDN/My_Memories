@@ -135,6 +135,8 @@ export default function App() {
                 users={users}
                 currentUser={currentUser}
                 onAttachMediaClick={handleAttachMediaClick}
+                onEventChanged={fetchData}
+                showToast={showToast}
               />
             )}
 
