@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+      routes:
+        # Route 1: User Service
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+
+        # Route 2: Event Service
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/api/events/**
+
+        # Route 3: Media Service
+        - id: media-service
+          uri: lb://media-service
+          predicates:
+            - Path=/api/media/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+  instance:
+    prefer-ip-address: true
